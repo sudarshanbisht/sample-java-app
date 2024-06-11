@@ -9,6 +9,8 @@ on:
     branches: 
       - main
       - develop
+  
+on: workflow_dispatch
 
 jobs:
   build:
