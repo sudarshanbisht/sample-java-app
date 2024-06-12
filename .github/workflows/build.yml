@@ -51,12 +51,14 @@ jobs:
       #     MY_SECRET: ${{ secrets.MY_SECRET }}
 
     - name: Run a script with variable
-      run: echo $MY_VAR
+      run: echo $MY_VARIABLE
       env:
           MY_VARIABLE: ${{ vars.MY_VAR }}      
 
   deploy_dev:
     runs-on: ubuntu-latest
+    environment: dev
+
     needs: ["build"]
     if: ${{ github.event_name != 'pull_request' }}
     steps:
@@ -68,8 +70,25 @@ jobs:
     # - name: List the artifacts
     #   run: | 
     #      ls -ltr
-      
+    - name: Run a script with variable
+      run: echo $MY_VARIABLE
+      env:
+          MY_VARIABLE: ${{ vars.MY_VAR }}    
+
     - name: Deploy to Dev enviormnet
       run: |
          echo "Deployment is done"
 
+  deploy_stage:
+    runs-on: ubuntu-latest
+    needs: ["build"]
+    environment: stage
+    steps:
+    - name: Run a script with variable
+      run: echo $MY_VARIABLE
+      env:
+          MY_VARIABLE: ${{ vars.MY_VARIABLE }
+
+    - name: Deploy to stage enviormnet
+      run: |
+         echo "Deployment is done"
