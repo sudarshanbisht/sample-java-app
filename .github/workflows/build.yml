@@ -39,12 +39,11 @@ jobs:
           echo "Build completed"
 
     - name: Uploading the artifacts
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-app-artifact
-          path: target/my-app-1.0-SNAPSHOT.jar
-          retention-days: 1
+      if: ${{ github.event_name != 'pull_request' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-app-artifact
+        path: target/my-app-1.0-SNAPSHOT.jar
 
   deploy_dev:
     runs-on: ubuntu-latest
