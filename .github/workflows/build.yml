@@ -6,7 +6,6 @@ on:
       - main
       - develop
       - 'release/**'
-      - "feature/**"
   pull_request:
     branches: 
       - main
@@ -35,5 +34,24 @@ jobs:
         restore-keys: ${{ runner.os }}-maven
 
     - name: Build with Maven
-      run: |
+      run:  |
           mvn install --file pom.xml
+          echo "Build completed"
+
+  deploy_dev:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' }}
+    steps:
+    # - name: Downloading jar
+    # - uses: actions/download-artifact@v4
+    #   with:
+    #       name: my-app-artifact
+
+    # - name: List the artifacts
+    #   run: | 
+    #      ls -ltr
+      
+    - name: Deploy to Dev enviormnet
+      run: |
+         echo "Deployment is done"
+
